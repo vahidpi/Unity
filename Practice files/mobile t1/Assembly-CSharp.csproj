@@ -53,7 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\PlayerControls.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>/home/vahid/Documents/Projects/Unity/mobile t1/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>/home/vahid/Documents/Projects/Unity/Practice files/mobile t1/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
