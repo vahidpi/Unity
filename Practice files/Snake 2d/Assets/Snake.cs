@@ -12,6 +12,12 @@ public class Snake : MonoBehaviour {
 	// Keep Track of Tail
 	List<Transform> tail = new List<Transform>();
 
+	//HingeJoint hinge = gameObject.GetComponent(typeof(HingeJoint)) as HingeJoint;
+
+
+
+
+
 	// Did the snake eat something?
 	bool ate = false;
 
@@ -22,7 +28,7 @@ public class Snake : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// Move the Snake every 300ms
-		InvokeRepeating("Move", 0.3f, 0.3f);   
+		InvokeRepeating("Move", 0.15f, 0.15f);   
 	}
 	
 	// Update is called once per frame
@@ -80,10 +86,19 @@ public class Snake : MonoBehaviour {
 
 			// Remove the Food
 			Destroy(coll.gameObject);
+
+
+			// stablish new food
+			GameObject mca = GameObject.Find("Main Camera");
+			SpawnFood scfood = mca.GetComponent<SpawnFood>();
+			scfood.next = true;
+
 		}
 		// Collided with Tail or Border
 		else {
 			// ToDo 'You lose' screen
+
+			Application.Quit();
 		}
 	}
 }
