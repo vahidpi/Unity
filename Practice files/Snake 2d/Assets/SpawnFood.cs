@@ -33,6 +33,7 @@ public class SpawnFood : MonoBehaviour {
 
 			// Instantiate the food at (x, y)
 			Instantiate(foodPrefab,new Vector2(x, y),Quaternion.identity); // default rotation
+
 			next=false;
 		}
 

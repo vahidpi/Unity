@@ -12,10 +12,13 @@ public class Snake : MonoBehaviour {
 	// Keep Track of Tail
 	List<Transform> tail = new List<Transform>();
 
-	//HingeJoint hinge = gameObject.GetComponent(typeof(HingeJoint)) as HingeJoint;
+
+	GameObject mca = GameObject.Find("Main Camera");
+	SpawnFood scfood = mca.GetComponent<SpawnFood>();
 
 
 
+	private long a=0;
 
 
 	// Did the snake eat something?
@@ -78,8 +81,13 @@ public class Snake : MonoBehaviour {
 
 	}
 
+
+
 	void OnTriggerEnter2D(Collider2D coll) {
 		// Food?
+
+		Debug.Log(coll.name);
+
 		if (coll.name.StartsWith("FoodPrefab")) {
 			// Get longer in next Move call
 			ate = true;
@@ -88,9 +96,7 @@ public class Snake : MonoBehaviour {
 			Destroy(coll.gameObject);
 
 
-			// stablish new food
-			GameObject mca = GameObject.Find("Main Camera");
-			SpawnFood scfood = mca.GetComponent<SpawnFood>();
+			// stablish new food?
 			scfood.next = true;
 
 		}
@@ -98,7 +104,8 @@ public class Snake : MonoBehaviour {
 		else {
 			// ToDo 'You lose' screen
 
-			Application.Quit();
+			Debug.Log("<color=red>"+ ++a +"</color>");
+
 		}
 	}
 }
