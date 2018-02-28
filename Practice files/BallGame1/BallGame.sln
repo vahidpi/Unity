@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BallGame", "BallGame.csproj", "{4E8ED3AE-468B-21CF-2B9C-912B746D808D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E8ED3AE-468B-21CF-2B9C-912B746D808D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8ED3AE-468B-21CF-2B9C-912B746D808D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8ED3AE-468B-21CF-2B9C-912B746D808D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8ED3AE-468B-21CF-2B9C-912B746D808D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
