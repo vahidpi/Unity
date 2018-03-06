@@ -1,0 +1,19 @@
+- Create a new prefab for bars, which is 2D version.
+- Remember to change collider to 2D version and put correct tag and change layer too.
+- Check that player loses health when drops on the bar.
+- Make sure player can jump again from the new bar.
+
+- Fix also the obstacle to work in 2D version
+
+TODO for rest of this and next week
+
+Do following things for this game
+- Simple main menu (Spearete scene called "Main Menu") Play button -> Level1
+- Level 1 top of the level is gameobject, which take you to level2. Use Scenemanager
+- level2: same thing -> to level3
+
+Special features:
+- Teleport (If player hits, teleport object, player will be sent to destination object)
+- Moving enemy (move enemy from a to b and from b to a and if hit by player take damage)
+- Key&lock combination (fetch key to destory lock)
+

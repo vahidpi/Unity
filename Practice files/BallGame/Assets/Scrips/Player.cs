@@ -1,9 +1,8 @@
-﻿
-
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -25,6 +24,9 @@ public class Player : MonoBehaviour {
 	public float health;
 	public float damage;
 
+    public Image forceMeter;
+
+	public bool won;
 
     public GameObject obstacleParticle;
 
@@ -86,6 +88,8 @@ public class Player : MonoBehaviour {
             highPoint = gameObject.transform.position.y;
             goingDown = true;
         }
+
+        forceMeter.fillAmount = force/maxForce;
     }
 
 
@@ -127,12 +131,25 @@ public class Player : MonoBehaviour {
             launched = false;
 		}
 
+		if (collision.gameObject.CompareTag ("Win") && goingDown == true) 
+		{
+			
+			goingDown = false;
+			launched = false;
+
+
+			won = true;
+
+            //SceneManager.LoadScene("");
+		}
+
         if (collision.gameObject.CompareTag("Obstacle")) {
            TakeDamage(collision.gameObject.GetComponent<Obstacle>().damage);
 
             //we are instancing the particle effect to the player's location
 
             GameObject effect = Instantiate(obstacleParticle, transform.position, Quaternion.identity) ;
+
 
             
         }
@@ -158,6 +175,7 @@ public class Player : MonoBehaviour {
 		GUI.Label(new Rect(10, 70, 100, 20), "HighPoint: " + highPoint,myGUIStyle);
 		GUI.Label(new Rect(10, 90, 100, 20), "Damage: " + damage,myGUIStyle);
 		GUI.Label(new Rect(10, 110, 100, 20), "Health: " + health,myGUIStyle);
+		if(won) GUI.Label(new Rect(10, 200, 100, 20), "You Won " ,myGUIStyle);
     }
 
    
