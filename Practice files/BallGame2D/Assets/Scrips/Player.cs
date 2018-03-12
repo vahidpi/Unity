@@ -143,6 +143,12 @@ public class Player : MonoBehaviour {
             //SceneManager.LoadScene("");
 		}
 
+        if (collision.gameObject.CompareTag ("Key")) 
+		{
+			
+			Debug.Log("keyyy");
+            //GetComponent<MeshRenderer>().
+		}
         if (collision.gameObject.CompareTag("Obstacle")) {
            TakeDamage(collision.gameObject.GetComponent<Obstacle>().damage);
 
