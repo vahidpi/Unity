@@ -293,6 +293,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scrips\Bar.cs" />
     <Compile Include="Assets\Scrips\CameraMovement.cs" />
+    <Compile Include="Assets\Scrips\KeyControl.cs" />
+    <Compile Include="Assets\Scrips\LockControl.cs" />
     <Compile Include="Assets\Scrips\Obstacle.cs" />
     <Compile Include="Assets\Scrips\Player.cs" />
     <Compile Include="Assets\Scrips\SceneChanger.cs" />

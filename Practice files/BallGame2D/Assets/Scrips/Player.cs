@@ -30,6 +30,12 @@ public class Player : MonoBehaviour {
 
     public GameObject obstacleParticle;
 
+
+    public bool yellowKey = false;
+    public bool blueKey = false;
+    public bool greenKey = false;
+    public bool orangeKey = false;
+
     // Use this for initialization
     void Start()
     {
@@ -147,10 +153,83 @@ public class Player : MonoBehaviour {
 		{
 			
 			Debug.Log("keyyy");
+
+            //key[0].GetComponent<Renderer>().enabled = false;
+
+            //Debug.Log(collision.gameObject.name);
+
+            collision.gameObject.GetComponent<Renderer>().enabled = false;
+
+            string keyColor = collision.gameObject.name.Substring(3);
+           
+            switch (keyColor)
+            {
+                case "Yellow":
+                    yellowKey = true;    
+                    break;
+                case "Green":
+                    greenKey = true;
+                    break;
+                case "Blue":
+                    blueKey = true;
+                    break;
+                case "Orange":
+                    orangeKey = true;
+                    break;
+            }
+            
             //GetComponent<MeshRenderer>().
-		}
+        }
+
+
+        if (collision.gameObject.CompareTag("Lock"))
+        {
+
+
+            string lockColor = collision.gameObject.name.Substring(4);
+
+
+            switch (lockColor)
+            {
+                case "Yellow":
+                    if(yellowKey)
+                    {
+                        // change position to related door                                             
+                        //Debug.Log(GameObject.Find("DoorYellow").transform.position);
+                        playerRB.transform.position = GameObject.Find("DoorYellow").transform.position;
+                        yellowKey = false;
+                    }                    
+                    break;
+                case "Green":
+                    if (greenKey)
+                    {
+                        playerRB.transform.position = GameObject.Find("DoorGreen").transform.position;
+                        greenKey = false;
+                    }
+                    greenKey = false;
+                    break;
+                case "Blue":
+                    if (blueKey)
+                    {
+                        playerRB.transform.position = GameObject.Find("DoorBlue").transform.position;
+                        blueKey = false;
+                    }
+                    blueKey = false;
+                    break;
+                case "Orange":
+                    if (orangeKey)
+                    {
+                        playerRB.transform.position = GameObject.Find("DoorOrange").transform.position;
+                        orangeKey = false;
+                    }
+                    orangeKey = false;
+                    break;
+            }
+
+            //GetComponent<MeshRenderer>().
+        }
         if (collision.gameObject.CompareTag("Obstacle")) {
-           TakeDamage(collision.gameObject.GetComponent<Obstacle>().damage);
+            TakeDamage(collision.gameObject.GetComponent<Obstacle>().damage);
 
             //we are instancing the particle effect to the player's location
 
