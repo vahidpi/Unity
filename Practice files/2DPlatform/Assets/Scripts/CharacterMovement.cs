@@ -69,6 +69,11 @@ public class CharacterMovement : MonoBehaviour {
             rb2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            animator.SetTrigger("Axee");
+            //rb2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        }
 
         if (counter<maxCounter)        
             counter += Time.deltaTime;        
