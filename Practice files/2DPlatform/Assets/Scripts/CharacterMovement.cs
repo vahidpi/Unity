@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 
@@ -12,8 +13,20 @@ public class CharacterMovement : MonoBehaviour {
     public Rigidbody2D rb2D;
     public Animator animator;
 
-	// Use this for initialization
-	void Start () {
+    public float currentHealth;
+    public float previusHealth;
+    public float maxHealth;
+    public float counter;
+    public float maxCounter;
+    public Image healthBar;
+
+
+    // Use this for initialization
+    void Start () {
+        currentHealth = maxHealth;
+        previusHealth = maxHealth;
+
+
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
 	}
@@ -55,6 +68,23 @@ public class CharacterMovement : MonoBehaviour {
             animator.SetTrigger("Jump");
             rb2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
+
+
+        if (counter<maxCounter)        
+            counter += Time.deltaTime;        
+        else
+        {
+            previusHealth = currentHealth;
+            counter = 0;
+        }
+            
+        
+
+        // do animator for healthbar
+        healthBar.fillAmount = Mathf.Lerp(previusHealth/maxHealth, currentHealth / maxHealth, counter / maxCounter);
+
+
+
         //animator.parameters.SetValue("Walk", true);
         //Input.GetAxis("Vertical");
 
@@ -72,5 +102,37 @@ public class CharacterMovement : MonoBehaviour {
         Posiibly fix jump bug, sp player cannot jump in the air
 
          */
+
+
+        /*
+         Fix jump, dont go to sky
+         (put empty gameobject to the feet of the player to check when empty gameobject are contacting with ground.only when jumping is possible
+         make player to throw an axe when pressed left Ctrl(instansiate)
+         unity cartoon axe png
+         make the axe to rotate in the air(transform.rotate)
+         make the axe to attch to the object it hits(remove rigidbody )
+         make limit to amount of axes and number to the UI
+
+         make user to light up a firepalce by pressing f-button
+         This means you need to instance the bonfire prefab
+         turn on particle effect and a light(include in the prefab)
+         if player is neat the fireplace lealth increasing slowly
+
+         */
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            TakeDamage(20f);
+        }
+    }
+
+    void TakeDamage(float dmg)
+    {
+        counter = 0;
+        previusHealth = healthBar.fillAmount * maxHealth;
+        currentHealth -= dmg;
     }
 }

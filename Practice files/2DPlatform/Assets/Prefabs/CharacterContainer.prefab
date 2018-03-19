@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 114692085818225794}
   m_Layer: 0
   m_Name: CharacterContainer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,6 +201,22 @@ GameObject:
   - component: {fileID: 212740390086392652}
   m_Layer: 0
   m_Name: Hat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1758294483622822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4364738357846816}
+  - component: {fileID: 114529366739361840}
+  m_Layer: 0
+  m_Name: CameraPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,6 +358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4382089784142196}
+  - {fileID: 4364738357846816}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -426,6 +443,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4505241595275752}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4364738357846816
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758294483622822}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.5, y: -1.1999998, z: -10.923047}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4037448882895214}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4382089784142196
 Transform:
@@ -635,6 +665,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114529366739361840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758294483622822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72df7f8af50186947a3ce631e6f87c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {fileID: 4364738357846816}
+  smoothTime: 0.5
 --- !u!114 &114692085818225794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +693,12 @@ MonoBehaviour:
   jumpForce: 1300
   rb2D: {fileID: 0}
   animator: {fileID: 0}
+  currentHealth: 0
+  previusHealth: 0
+  maxHealth: 0
+  counter: 0
+  maxCounter: 0
+  healthBar: {fileID: 0}
 --- !u!212 &212009794755081856
 SpriteRenderer:
   m_ObjectHideFlags: 1
