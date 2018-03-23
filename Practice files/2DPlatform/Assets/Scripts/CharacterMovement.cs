@@ -20,6 +20,13 @@ public class CharacterMovement : MonoBehaviour {
     public float maxCounter;
     public Image healthBar;
 
+    public bool grounded;
+
+    public GameObject axe;
+    public float throwForce;
+    public int axeAmount;
+
+    public GameObject bonFire;
 
     // Use this for initialization
     void Start () {
@@ -63,16 +70,38 @@ public class CharacterMovement : MonoBehaviour {
         }
 
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && grounded)
         {
+
             animator.SetTrigger("Jump");
             rb2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
         }
 
-        if (Input.GetButtonDown("Fire1"))
+
+
+        if (Input.GetButtonDown("Fire1") && axeAmount>0)
         {
-            animator.SetTrigger("Axee");
+            //animator.SetTrigger("Axee");
+
             //rb2D.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            Debug.Log("Left's throw an axe");
+            axeAmount--;
+            // two ways to do instantiate
+
+            GameObject axeInstance = Instantiate(axe, gameObject.transform.position, Quaternion.identity);
+            //axeInstance.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.localScale.x * gameObject.transform.right * throwForce, ForceMode2D.Impulse);
+            axeInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(gameObject.transform.localScale.x * throwForce, throwForce), ForceMode2D.Impulse);
+
+            axeInstance.GetComponent<Rigidbody2D>().AddTorque(-800 * gameObject.transform.localScale.x);
+            // other way
+            //Instantiate(axe, gameObject.transform.position, Quaternion.identity);
+        }
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            Vector2 bonfirePosition =new Vector2(GameObject.Find("Foot_L").transform.position.x + 6 * gameObject.transform.localScale.x, GameObject.Find("Foot_L").transform.position.y+2);
+
+            Instantiate(bonFire, bonfirePosition, Quaternion.identity);
         }
 
         if (counter<maxCounter)        
@@ -124,8 +153,26 @@ public class CharacterMovement : MonoBehaviour {
          if player is neat the fireplace lealth increasing slowly
 
          */
-    }
+    } // Update
 
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("AxeWalkable"))
+        {            
+            grounded = false;
+
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("AxeWalkable"))
+        {
+            // we are touching ground
+            grounded = true;
+
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Enemy"))
