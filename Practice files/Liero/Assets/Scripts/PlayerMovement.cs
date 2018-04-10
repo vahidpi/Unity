@@ -20,19 +20,31 @@ public class PlayerMovement : MonoBehaviour {
     public bool firstHeadHit;
 
     public GameObject testrayFront;
+    public GameObject testraySlope;
     public bool frontHit;
+    public bool slopeHit;
 
     public float jumpForce;
     public float defaultGravity = 0.2f;
 
     public float movementSpeed;
+    public float digingSpeed;
+    public float redusedSpeed;
 
-	// Use this for initialization
-	void Start () {
+    public ParticleSystem diggingParticle;
+
+    public GameObject hook;
+    private GameObject hookInstance;
+
+
+    // Use this for initialization
+    void Start () {
         rb2D = GetComponent<Rigidbody2D>();
         cameraDraw = cam.GetComponent<CameraDraw>();
 
-	}
+        ParticleSystem.EmissionModule em = diggingParticle.emission;
+        em.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,6 +57,7 @@ public class PlayerMovement : MonoBehaviour {
         grounded = cameraDraw.DrawRay(testrayGround.transform.position);
         headHit = cameraDraw.DrawRay(testrayHead.transform.position);
         frontHit = cameraDraw.DrawRay(testrayFront.transform.position);
+        slopeHit = cameraDraw.DrawRay(testraySlope.transform.position);
 
         if (grounded==true)
         {
@@ -55,7 +68,7 @@ public class PlayerMovement : MonoBehaviour {
             rb2D.gravityScale = defaultGravity;
         }
 
-        if (headHit == true)
+        if (headHit)
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x, 0);
         }
@@ -71,7 +84,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-        if(headHit == true && firstHeadHit== false)
+        if(headHit && !firstHeadHit)
         {
             firstHeadHit = true;
             rb2D.velocity = new Vector2(rb2D.velocity.x, 0);
@@ -87,8 +100,30 @@ public class PlayerMovement : MonoBehaviour {
         {
             if(!frontHit)
             {
-                transform.Translate(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime,0,0);
+                if(slopeHit)
+                {
+                    // we are from somting small obstcle
+                    transform.Translate(Input.GetAxis("Horizontal") * redusedSpeed * Time.deltaTime, redusedSpeed * Time.deltaTime, 0);
+
+                }
+                else
+                {
+                    transform.Translate(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0, 0);
+                    ParticleSystem.EmissionModule em = diggingParticle.emission;
+                    em.enabled = false;
+                }
             }
+            else
+            {
+                transform.Translate(Input.GetAxis("Horizontal") * digingSpeed * Time.deltaTime, Input.GetAxis("Vertical") * digingSpeed * Time.deltaTime, 0);
+
+                ParticleSystem.EmissionModule em = diggingParticle.emission;
+                em.enabled = true;
+
+                cameraDraw.Digging(transform.position,10);
+
+            }
+
             transform.localScale=new Vector3(Input.GetAxisRaw("Horizontal") , 1, 1);
           
         }
@@ -97,10 +132,24 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             GameObject ammoInstanciate = Instantiate(ammo, ammoSpawn.transform.position, Quaternion.identity);
-            ammoInstanciate.GetComponent<Rigidbody2D>().AddForce(transform.localScale.x * Vector2.right*5, ForceMode2D.Impulse);
+            ammoInstanciate.GetComponent<Rigidbody2D>().AddForce(transform.localScale.x * ammoSpawn.transform.right, ForceMode2D.Impulse);
         }
 
-        
+        if (Input.GetButtonDown("Fire2"))
+        {
+            if(!GetComponent<HingeJoint2D>())
+            {
+                hookInstance = Instantiate(hook, ammoSpawn.transform.position, Quaternion.identity);
+
+                hookInstance.GetComponent<Rigidbody2D>().AddForce(transform.localScale.x * ammoSpawn.transform.right * 15, ForceMode2D.Impulse);
+            }
+            else
+            {
+                Destroy(hookInstance);
+                Destroy(GetComponent<Rigidbody2D>());
+            }
+     
+        }
 
         /*
          
@@ -115,6 +164,7 @@ public class PlayerMovement : MonoBehaviour {
 
         3.
         when player walks 0 is grounded, play really small dust particle effect behind the player
+        (digs)
 
         Bonus
         4. make palyer able to dig to the ground straight left and right and up and down 45 degree. while gigging the  the envaronment is destroyd

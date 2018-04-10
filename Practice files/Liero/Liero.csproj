@@ -291,6 +291,8 @@
     <Compile Include="Assets\Scripts\AmmoRay.cs" />
     <Compile Include="Assets\Scripts\CameraDraw.cs" />
     <Compile Include="Assets\Scripts\Draw.cs" />
+    <Compile Include="Assets\Scripts\GrapplingHook.cs" />
+    <Compile Include="Assets\Scripts\GunRotator.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

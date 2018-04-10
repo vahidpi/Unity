@@ -135,6 +135,50 @@ public class CameraDraw : MonoBehaviour {
 
     }
 
+    public bool Digging(Vector3 location, int radius)
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(cam.ScreenPointToRay(cam.WorldToScreenPoint(location)), out hit))
+        {
+
+            return false;
+        }
+
+
+        Renderer rend = hit.transform.GetComponent<Renderer>();
+        MeshCollider meshCollider = hit.collider as MeshCollider;
+
+
+        if (rend == null || rend.sharedMaterial == null || rend.sharedMaterial == null ||
+            rend.sharedMaterial.mainTexture == null || meshCollider == null)
+        {
+            return false;
+        }
+
+
+        Texture2D tex = rend.material.mainTexture as Texture2D;
+        Vector2 pixelUV = hit.textureCoord;
+
+        pixelUV.x *= tex.width;
+        pixelUV.y *= tex.height;
+
+        // we check if the pixel aplpha value is 1.0
+        if (tex.GetPixel((int)pixelUV.x, (int)pixelUV.y).a == 1.0)
+        {
+            // ammo has hit the wall, let's draw a transparent circle to the texture
+
+            Circle(tex, (int)pixelUV.x, (int)pixelUV.y, radius, Color.clear);
+            tex.Apply();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        //return false;
+
+    }
+
     public void Circle(Texture2D tex, int cx, int cy, int r, Color col)
     {
         int x, y, px, py, nx, ny, d;
