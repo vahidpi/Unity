@@ -13,8 +13,8 @@ public class Snake : MonoBehaviour {
 	List<Transform> tail = new List<Transform>();
 
 
-	GameObject mca = GameObject.Find("Main Camera");
-	SpawnFood scfood = mca.GetComponent<SpawnFood>();
+	//GameObject mca = GameObject.Find("Main Camera");
+	//SpawnFood scfood = mca.GetComponent<SpawnFood>();
 
 
 
@@ -86,7 +86,7 @@ public class Snake : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 		// Food?
 
-		Debug.Log(coll.name);
+		//Debug.Log(coll.name);
 
 		if (coll.name.StartsWith("FoodPrefab")) {
 			// Get longer in next Move call
@@ -97,14 +97,15 @@ public class Snake : MonoBehaviour {
 
 
 			// stablish new food?
-			scfood.next = true;
+			//scfood.next = true;
+			GameObject.Find("Main Camera").GetComponent<SpawnFood>().next=true;
 
 		}
 		// Collided with Tail or Border
 		else {
 			// ToDo 'You lose' screen
 
-			Debug.Log("<color=red>"+ ++a +"</color>");
+			Debug.Log("<color=red>No - "+ coll.name +"</color>");
 
 		}
 	}
