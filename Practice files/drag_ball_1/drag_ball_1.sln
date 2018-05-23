@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drag_ball_1", "Assembly-CSharp.csproj", "{DF6D5A27-9996-AFB9-35C1-697D58096629}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF6D5A27-9996-AFB9-35C1-697D58096629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF6D5A27-9996-AFB9-35C1-697D58096629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF6D5A27-9996-AFB9-35C1-697D58096629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF6D5A27-9996-AFB9-35C1-697D58096629}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
