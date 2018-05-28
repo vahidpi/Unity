@@ -10,10 +10,14 @@ public class BallControl : MonoBehaviour {
 	public float minForce;
 	public float maxForce;
 
+	public float speed;
+
 
 	public float maxMousePressLong;
 	private float clickStart=0;
 	private bool click = false;
+	private bool jump = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,12 +29,13 @@ public class BallControl : MonoBehaviour {
 	void Update () {
 
 
+		transform.position += transform.right * Time.deltaTime * speed;
 
-
-		if (Input.GetMouseButton(0) && !click) {
+		if (Input.GetMouseButton(0)) {
 			click = true;
 			clickStart = Time.time;
 			Debug.Log (clickStart);
+			jump = true;
 
 		} 
 
@@ -44,23 +49,18 @@ public class BallControl : MonoBehaviour {
 		}
 
 
-		if (!(Time.time - clickStart < maxMousePressLong)&&click) {
-			//click = false;
-			force = Mathf.Clamp (force, minForce, maxForce);
-			Launch(force, Vector2.up);
-
-			click = false;
-			force = 0;
-		}
-		if(Input.GetMouseButtonUp(0)){
+		if (jump) {
+			if (Input.GetMouseButtonUp (0) || (Time.time - clickStart >= maxMousePressLong)) {
 			
-			force = Mathf.Clamp (force, minForce, maxForce);
-			//Debug.Log (force);     
+				force = Mathf.Clamp (force, minForce, maxForce);
+				//Debug.Log (force);     
+				//clickStart=0;
+				Launch (force, Vector2.up);
 
-			Launch(force, Vector2.up);
-
-			click = false;
-			force = 0;
+				click = false;
+				force = 0;
+				jump = false;
+			}
 		}
 
 
